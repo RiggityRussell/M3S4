@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace FInchRussell
 {
+    #region COMMAND ENUM
     /// <summary>
     /// User commands called from ENUM
     /// </summary>
@@ -25,6 +26,7 @@ namespace FInchRussell
         GETTEMPERATURE,
         DONE
     }
+    #endregion
     class Program
     {
         // **********************************************************************
@@ -124,6 +126,9 @@ namespace FInchRussell
             } while (!quitMenu);
                         
         }
+        #endregion
+
+        #region USER PROGRAM EXECUTE COMMANDS
         /// <summary>
         /// Eggsecute
         /// </summary>
@@ -208,7 +213,9 @@ namespace FInchRussell
             }
             DisplayMenuPrompt("User Programming");
         }
+        #endregion
 
+        #region USER PROGRAM DISPLAY COMMANDS
         /// <summary>
         /// Display Commands
         /// </summary>
@@ -224,6 +231,10 @@ namespace FInchRussell
 
             DisplayMenuPrompt("User Programming");
         }
+
+        #endregion
+
+        #region USER PROGRAM GET COMMANDS
         /// <summary>
         /// Get the commands
         /// </summary>
@@ -261,12 +272,21 @@ namespace FInchRussell
                     Console.WriteLine("\t\t#############################################");
                 }
             }
+                        
+            Console.WriteLine("\n\tLooks like you have some commands!");
+            Console.WriteLine("\n\tPress any key to see your commands");
+            Console.ReadKey();
 
-            //echo dem commands
+            UserProgrammingDisplayFinchCommands(commands);
 
-            DisplayMenuPrompt("User Programming");
         }
+        #endregion
 
+        #region USER PROGRAM GET COMMAND PARAMETERS
+        /// <summary>
+        /// Collects the command parameters
+        /// </summary>
+        /// <returns>commandParameters</returns>
         private static (int motorSpeed, int ledBrightness, double waitSeconds) UserProgrammingDisplayGetCommandParameters()
         {
             DisplayHeader("Command Parameters");
@@ -289,7 +309,16 @@ namespace FInchRussell
 
             return commandParameters;
         }
+        #endregion
 
+        #region GETTING VALID DOUBLE
+        /// <summary>
+        /// Proud of this one. gets a double, validates that, sends it back.
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <param name="v3"></param>
+        /// <param name="funkyWait"></param>
         private static void GetValidDouble(string v1, int v2, int v3, out double funkyWait)
         {
             Console.WriteLine(v1);
@@ -303,11 +332,20 @@ namespace FInchRussell
 
             else
             {
-                Console.WriteLine("\n\tWRONG, please enter a number between 1 and 10.\n");
+                Console.WriteLine("\n\tWRONG, please enter a valid number.\n");
                 GetValidDouble(v1, v2, v3, out funkyWait);
             }
         }
+        #endregion
 
+        #region GETTING VALID INTEGER
+        /// <summary>
+        /// Similar to Double, only INT
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <param name="v3"></param>
+        /// <param name="funkyInt"></param>
         private static void GetValidInteger(string v1, int v2, int v3, out int funkyInt)
         {
             

@@ -26,6 +26,8 @@ namespace FInchRussell
         GETTEMPERATURE,
         MAKENOISE,
         STOPNOISE,
+        ALLSTUFF,
+        STOPALLSTUFF,
         DONE
     }
     #endregion
@@ -207,8 +209,22 @@ namespace FInchRussell
                         break;
 
                     case Command.STOPNOISE:
-                        Reznor.noteOn(0);
+                        Reznor.noteOff();
                         commandFeedback = Command.STOPNOISE.ToString();
+                        break;
+
+                    case Command.ALLSTUFF:
+                        Reznor.noteOn(400);
+                        Reznor.setLED(ledBrightness, ledBrightness, ledBrightness);
+                        Reznor.setMotors(motorSpeed, motorSpeed);
+                        commandFeedback = Command.ALLSTUFF.ToString();
+                        break;
+
+                    case Command.STOPALLSTUFF:
+                        Reznor.noteOff();
+                        Reznor.setLED(0, 0, 0);
+                        Reznor.setMotors(0, 0);
+                        commandFeedback = Command.STOPALLSTUFF.ToString();
                         break;
 
                     case Command.DONE:

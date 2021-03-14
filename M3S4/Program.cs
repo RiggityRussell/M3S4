@@ -24,6 +24,8 @@ namespace FInchRussell
         LEDON,
         LEDOFF,
         GETTEMPERATURE,
+        MAKENOISE,
+        STOPNOISE,
         DONE
     }
     #endregion
@@ -90,7 +92,7 @@ namespace FInchRussell
                 Console.WriteLine("\tb) Add Commands");
                 Console.WriteLine("\tc) View Commands");
                 Console.WriteLine("\td) Execute Commands");
-                Console.WriteLine("\tq) Quit");
+                Console.WriteLine("\tq) Return to Main Menu");
                 Console.Write("\t\tEnter Choice: ");
                 menuChoice = Console.ReadLine().ToLower();
 
@@ -199,10 +201,20 @@ namespace FInchRussell
                         commandFeedback = $"Temperature: {Reznor.getTemperature().ToString("n2")}\n";
                         break;
 
+                    case Command.MAKENOISE:
+                        Reznor.noteOn(200);
+                        commandFeedback = Command.MAKENOISE.ToString();
+                        break;
+
+                    case Command.STOPNOISE:
+                        Reznor.noteOn(0);
+                        commandFeedback = Command.STOPNOISE.ToString();
+                        break;
+
                     case Command.DONE:
                         commandFeedback = Command.DONE.ToString();
                         break;
-
+                                      
                     default:
 
                         break;
@@ -321,16 +333,20 @@ namespace FInchRussell
         /// <param name="funkyWait"></param>
         private static void GetValidDouble(string v1, int v2, int v3, out double funkyWait)
         {
+            double userInput = 0;
+            
+            
             Console.WriteLine(v1);
-            double userInput = double.Parse(Console.ReadLine());
+            bool crumbles = double.TryParse(Console.ReadLine(), out userInput);
 
-            if (userInput >= v2 && userInput <= v3)
+
+            if (userInput >= v2 && userInput <= v3 && crumbles == true)
             {
                 funkyWait = userInput;
                 return;
             }
 
-            else
+            else 
             {
                 Console.WriteLine("\n\tWRONG, please enter a valid number.\n");
                 GetValidDouble(v1, v2, v3, out funkyWait);
@@ -348,10 +364,12 @@ namespace FInchRussell
         /// <param name="funkyInt"></param>
         private static void GetValidInteger(string v1, int v2, int v3, out int funkyInt)
         {
+            int userInpoot = 0;
             
             Console.WriteLine(v1);
-            int userInpoot = Int32.Parse(Console.ReadLine());
 
+            Int32.TryParse(Console.ReadLine(), out userInpoot);
+           
             if (userInpoot >= v2 && userInpoot <= v3)
             {
 
